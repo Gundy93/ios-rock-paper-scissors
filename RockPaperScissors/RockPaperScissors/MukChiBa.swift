@@ -8,7 +8,7 @@
 final class MukChiba: RockPaperScissors {
 
     override func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
-        let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
+        let differenceNumber: GameJudgment = makeRockPaperScissorsResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:
             print(GameJudgment.win.message)
@@ -24,9 +24,9 @@ final class MukChiba: RockPaperScissors {
     
     private func startMukChiBa(attackTurn: Turn) {
         attackTurn.displayTurn()
-        GameText.start.displayMessage()
+        GameText.start.displayMukChiBaMessage()
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
-            GameText.caution.displayMessage()
+            GameText.caution.displayMukChiBaMessage()
             startMukChiBa(attackTurn: .computer)
             return
         }
@@ -40,13 +40,13 @@ final class MukChiba: RockPaperScissors {
         case .play:
             compareNumbers(makeComputerNumber(), userNumber, attackTurn)
         default:
-            GameText.caution.displayMessage()
+            GameText.caution.displayMukChiBaMessage()
             startMukChiBa(attackTurn: .computer)
         }
     }
     
     private func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Turn) {
-        let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
+        let differenceNumber: GameJudgment = makeMukChiBaResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:
             startMukChiBa(attackTurn: .user)
@@ -58,6 +58,17 @@ final class MukChiba: RockPaperScissors {
             } else {
                 print(GameOver.computerWin.message)
             }
+        }
+    }
+    
+    private func makeMukChiBaResult(_ differenceNumber: Int) -> GameJudgment {
+        switch differenceNumber {
+        case -2, 1:
+            return .win
+        case -1, 2:
+            return .lose
+        default:
+            return .draw
         }
     }
 }

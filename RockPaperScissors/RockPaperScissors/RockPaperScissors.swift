@@ -8,9 +8,9 @@
 class RockPaperScissors {
     
     func startGame() {
-        GameText.start.displayMessage()
+        GameText.start.displayRockPaperScissorsMessage()
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
-            GameText.caution.displayMessage()
+            GameText.caution.displayRockPaperScissorsMessage()
             startGame()
             return
         }
@@ -31,7 +31,7 @@ class RockPaperScissors {
         case .play:
             compareNumbers(makeComputerNumber(), userNumber)
         default:
-            GameText.caution.displayMessage()
+            GameText.caution.displayRockPaperScissorsMessage()
             startGame()
         }
     }
@@ -53,7 +53,7 @@ class RockPaperScissors {
     }
     
     func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
-        let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
+        let differenceNumber: GameJudgment = makeRockPaperScissorsResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:
             print(GameJudgment.win.message)
@@ -65,11 +65,11 @@ class RockPaperScissors {
         }
     }
     
-    func makeResult(_ differenceNumber: Int) -> GameJudgment {
+    func makeRockPaperScissorsResult(_ differenceNumber: Int) -> GameJudgment {
         switch differenceNumber {
-        case -2, 1:
-            return .win
         case -1, 2:
+            return .win
+        case -2, 1:
             return .lose
         default:
             return .draw
